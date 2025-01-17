@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualisasi Pohon Biner & Pencarian Jalur Terpendek</title>
+        <link rel="stylesheet" href="calculator.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <header class="header">
+        <div class="wrap">
+            <div class="left-header" style="margin-bottom: 10px; margin-top: 5px;">
+                <h3 style="color: white;">Panjang Lintasan<br> Pohon Berakar</h3>
+            </div>
+            <nav class="navbar" style="text-decoration: none;">
+                <ul>
+                    <li>
+                        <a href="index.html">Home
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="Material.html">Material
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-half" viewBox="0 0 16 16">
+                                <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                              </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="kuis.html">Kuis
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-marker-tip" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5 6.064-1.281-4.696A.5.5 0 0 0 9.736 9H6.264a.5.5 0 0 0-.483.368l-1.28 4.696A6.97 6.97 0 0 0 8 15c1.275 0 2.47-.34 3.5-.936m.873-.598a7 7 0 1 0-8.746 0l1.19-4.36a1.5 1.5 0 0 1 1.31-1.1l1.155-3.851c.213-.713 1.223-.713 1.436 0l1.156 3.851a1.5 1.5 0 0 1 1.31 1.1z"/>
+                              </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Video.html">Video
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
+                              </svg>
+                        </a>
+                    </li>
+                    <li class="login-btn">
+                        <a href="Calculator.html" class="btn">Calculator
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+                                <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                              </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+
+    <div class="container main-container" style="margin-top: 100px;">
+        <h1 class="title" style="color: white;"> Pohon Biner & Pencarian Jalur Terpendek</h1>
+        
+        <div class="card bg-dark text-white border-primary mb-3">
+            <div class="card-header bg-primary">
+                Konfigurasi Pohon Biner
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah Node:</label>
+                            <input type="number" class="form-control" id="nodeCount" value="7" min="1" max="15">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Node Tujuan:</label>
+                            <!-- <select id="goalNode" class="form-control"></select> -->
+                            <input type="number" id="goalNode" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label"> Kedalaman (depth):</label>
+                            <input type="number" class="form-control" id="treeDepth" value="3" min="1" max="5">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn custom-btn" onclick="generateBinaryTree()">
+                            Buat Node dan Edge 
+                        </button>
+                    </div>
+                    <div id="result" class="mt-3"></div>
+                    <div id="steps" class="mt-3">
+                    <h5>Langkah-Langkah:</h5>
+                    <ol id="stepsList"></ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn custom-btn" onclick="findShortestPath()">
+                Cari Jalur Terpendek
+            </button>
+            <button class="btn custom-btn" onclick="clearCanvas()">
+                Bersihkan
+            </button>
+        </div>
+
+        <canvas id="canvas" width="350" height="500"></canvas>
+        
+        <div id="result"></div>
+        <br>
+    </br>
+    <br>
+    </br>
+    <div style="margin-left: 25%;">
+    <p> <strong></strong></p>
+</div>
+    <diV style="margin-left: 42%;">
+    <svg fill="#000000" viewBox="0 0 75 22" xmlns="http://www.w3.org/2000/svg" id="memory-monitor-image"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M14 6H16V7H17V9H16V10H14V9H13V7H14V6M2 2H20V3H21V15H20V16H13V18H15V20H7V18H9V16H2V15H1V3H2V2M3 4V9H4V8H5V7H6V6H8V7H9V8H10V9H11V10H12V11H13V12H14V13H15V14H19V4H3M10 11H9V10H8V9H6V10H5V11H4V12H3V14H12V13H11V12H10V11Z"></path></g></svg>
+</diV>    
+    <div style="margin-left: 25%;">
+            <table style="height: 55%; width:77%;">
+                <tr>
+                    <td align="center" valign="middle">
+                        <h5></h5>
+                    </td>
+                </tr>
+            </table>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/2rfTx1yajM8?si=sDrpFrV3Qo6ezzOD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <br>
+            <br>
+    </br>
+    <br>
+    </br>
+</div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const nodes = [];
+        const edges = [];
+        let nodeCounter = 1;
+
+        class Node {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.id = nodeCounter++;
+                this.left = null;
+                this.right = null;
+               
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 20, 0, 2 * Math.PI);
+                ctx.fillStyle = this.inPath ? '#FF6B6B' : '#334D80';
+                ctx.fill();
+                ctx.strokeStyle = this.inPath ? '#FF4949' : '#4666B3';
+                ctx.lineWidth = this.inPath ? 3 : 2;
+                ctx.stroke();
+                ctx.fillStyle = 'white';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.id.toString(), this.x, this.y);
+            }
+        }
+
+        class Edge {
+            constructor(node1, node2) {
+                this.node1 = node1;
+                this.node2 = node2;
+                this.weight = Math.sqrt(
+                    (node2.x - node1.x) ** 2 + 
+                    (node2.y - node1.y) ** 2
+                ).toFixed(0);
+                this.inPath = false; // Inisialisasi inPath
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.node1.x, this.node1.y);
+                ctx.lineTo(this.node2.x, this.node2.y);
+                ctx.strokeStyle = this.inPath ? '#FF4949' : '#334D80';
+                ctx.lineWidth = this.inPath ? 3 : 2;
+                ctx.stroke();
+                const midX = (this.node1.x + this.node2.x) / 2;
+                const midY = (this.node1.y + this.node2.y) / 2;
+                ctx.fillStyle = 'rgb(40, 40, 40)';
+                ctx.fillRect(midX - 15, midY - 10, 30, 20);
+                ctx.fillStyle = this.inPath ? '#FF6B6B' : 'white';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.weight, midX, midY);
+            }
+        }
+
+        function generateSpanningTree() {
+            if (nodes.length === 0) {
+                alert('Tidak ada node untuk membangun pohon rentang!');
+                return;
+            }
+
+            clearCanvas(); // Bersihkan canvas sebelum menggambar pohon rentang
+
+            const spanningTreeEdges = [];
+            const visited = new Set();
+            const edgesList = [...edges]; // Salin daftar edges yang ada
+
+            // Mulai dari node pertama
+            const startNode = nodes[0];
+            visited.add(startNode.id);
+
+            while (visited.size < nodes.length) {
+                let minEdge = null;
+
+                // Temukan edge terkecil yang menghubungkan node yang sudah dikunjungi dengan node yang belum
+                for (const edge of edgesList) {
+                    const { node1, node2 } = edge;
+                    if (visited.has(node1.id) && !visited.has(node2.id)) {
+                        if (!minEdge || edge.weight < minEdge.weight) {
+                            minEdge = edge;
+                        }
+                    } else if (visited.has(node2.id) && !visited.has(node1.id)) {
+                        if (!minEdge || edge.weight < minEdge.weight) {
+                            minEdge = edge;
+                        }
+                    }
+                }
+
+                if (minEdge) {
+                    spanningTreeEdges.push(minEdge); // Tambahkan edge ke pohon rentang
+                    visited.add(minEdge.node1.id);
+                    visited.add(minEdge.node2.id);
+                }
+            }
+
+            // Gambar pohon rentang
+            spanningTreeEdges.forEach(edge => edge.draw());
+            nodes.forEach(node => node.draw());
+        }
+        
+        function generateBinaryTree() {
+            clearCanvas();
+            const nodeCount = parseInt(document.getElementById('nodeCount').value);
+            const dropdown = document.getElementById('goalNode');
+            dropdown.innerHTML = '';
+            const levelHeight = 80;
+            const startY = 50;
+            const startX = canvas.width / 2;
+            const root = new Node(startX, startY);
+            nodes.push(root);
+
+            function addNodes(parent, level, maxLevel, leftBound, rightBound) {
+                if (nodes.length >= nodeCount || level >= maxLevel) return;
+
+                const verticalGap = levelHeight;
+                const y = parent.y + verticalGap;
+
+                if (nodes.length < nodeCount) {
+                    const leftX = (leftBound + parent.x) / 2;
+                    const leftChild = new Node(leftX, y);
+                    nodes.push(leftChild);
+                    edges.push(new Edge(parent, leftChild));
+                    parent.left = leftChild;
+                    addNodes(leftChild, level + 1, maxLevel, leftBound, parent.x);
+                }
+
+                if (nodes.length < nodeCount) {
+                    const rightX = (rightBound + parent.x) / 2;
+                    const rightChild = new Node(rightX, y);
+                    nodes.push(rightChild);
+                    edges.push(new Edge(parent, rightChild));
+                    parent.right = rightChild;
+                    addNodes(rightChild, level + 1, maxLevel, parent.x, rightBound);
+                }
+            }
+
+            const maxLevel = parseInt(document.getElementById('treeDepth').value) || Math.ceil(Math.log2(nodeCount + 1));
+            addNodes(root, 1, maxLevel, 0, canvas.width);
+
+            nodes.forEach(node => {
+                const option = document.createElement('option');
+                option.value = node.id;
+                option.text = `Node ${node.id}`;
+                dropdown.appendChild(option);
+            });
+
+            redrawCanvas();
+        }
+
+        function clearCanvas() {
+            nodes.length = 0;
+            edges.length = 0;
+            nodeCounter = 1;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('result').innerHTML = '';
+        }
+
+        function redrawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            edges.forEach(edge => edge.draw());
+            nodes.forEach(node => node.draw());
+        }
+
+        function findShortestPath() {
+            if (nodes.length < 2) {
+                alert('Minimal diperlukan 2 node!');
+                return;
+            }
+
+            const goalNodeId = parseInt(document.getElementById('goalNode').value);
+            const goalNode = nodes.find(node => node.id === goalNodeId);
+
+            if (!goalNode) {
+                alert('Node tujuan tidak valid!');
+                return;
+            }
+
+            nodes.forEach(node => node.inPath = false);
+            edges.forEach(edge => edge.inPath = false);
+
+            const distances = {};
+            const previous = {};
+            const unvisited = new Set();
+            const steps = [];// array untuk menyimpan langkah langkah
+
+            nodes.forEach(node => {
+                distances[node.id] = Infinity;
+                previous[node.id] = null;
+                unvisited.add(node.id);
+            });
+
+            distances[nodes[0].id] = 0;
+
+            while (unvisited.size > 0) {
+                let minDistance = Infinity;
+                let current = null;
+
+                unvisited.forEach(nodeId => {
+                    if (distances[nodeId] < minDistance) {
+                        minDistance = distances[nodeId];
+                        current = nodeId;
+                    }
+                });
+
+                if (current === null) break;
+                unvisited.delete(current);
+
+                steps.push(`Node ${current} diproses dengan jarak sementara: ${minDistance}`);
+
+
+                edges.forEach(edge => {
+                    let neighbor = null;
+                    if (edge.node1.id === current) {
+                        neighbor = edge.node2.id;
+                    } else if (edge.node2.id === current) {
+                        neighbor = edge.node1.id;
+                    }
+
+                    if (neighbor !== null && unvisited.has(neighbor)) {
+                        const alt = distances[current] + parseInt(edge.weight);
+                        if (alt < distances[neighbor]) {
+                            distances[neighbor] = alt;
+                            previous[neighbor] = current;
+                            steps.push(`Jarak ke Node ${neighbor} diperbarui menjadi ${alt} melalui Node ${current}`);
+                
+                        }
+                    }
+                });
+            }
+
+            const path = [];
+            let current = goalNode.id;
+            
+            while (current !== null) {
+                path.unshift(current);
+                nodes.find(n => n.id === current).inPath = true;
+                current = previous[current];
+            }
+            
+            edges.forEach(edge => {
+                edge.inPath = path.includes(edge.node1.id) && 
+                            path.includes(edge.node2.id) &&
+                            Math.abs(path.indexOf(edge.node1.id) - path.indexOf(edge.node2.id)) === 1;
+            });
+
+            redrawCanvas();
+
+            const result = document.getElementById('result');
+            result.innerHTML = `
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Hasil Pencarian Jalur Terpendek:</h5>
+                    <p><strong>Jalur:</strong> ${path.join(' → ')}</p>
+                    <p class="mb-0"><strong>Total Jarak:</strong> ${distances[goalNode.id]}</p>
+                </div>
+            `;
+          
+            // Tampilkan langkah-langkah
+           const stepsList = document.getElementById('stepsList');
+           stepsList.innerHTML = '';
+           steps.forEach(step => {
+           const li = document.createElement('li');
+           li.textContent = step;
+           stepsList.appendChild(li);
+       });
+    }
+</script>
+</body>
+</html>
